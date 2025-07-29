@@ -5,7 +5,9 @@ packages <- c("here",
               "dplyr",
               "lubridate",
               "ggplot2",
-              "readxl")
+              "readxl",
+              "scales",
+              "tidyr")
 
 
 # Load Packages -----------------------------------------------------------
