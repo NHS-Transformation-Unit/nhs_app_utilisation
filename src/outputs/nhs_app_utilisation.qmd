@@ -1,0 +1,38 @@
+---
+title: "NHS App Utilisation"
+author: "<a href='https://github.com/ASW-Analyst/'>Andy Wilson</a><br><a href='https://transformationunit.nhs.uk/'>NHS Transformation Unit</a>"
+date: "07/29/2025"
+date-format: "DD MMMM YYYY"
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    self-contained: true
+    css: ../config/nhs_tu_theme.css
+---
+
+
+# Introduction
+
+* Reference to feedback in 10YP
+* Remit of HealthWatch
+
+# What is publicly available about app usage
+
+* National MI Report
+* Analysis of variation in usage across ICBs
+* What isn't published
+
+# Demographics FOI Request
+
+* What was in the FOI
+* What couldn't be provided
+* Age group analysis
+* Deprivation analysis
+
+# Going forward, how to engage with users
+
+* Key questions
+* Need to monitor demographics
+* Delivery plan and need to include training and engagement with the app
