@@ -49,3 +49,12 @@ app_demo_imd_raw <- read_excel(paste0(here("data",
                                sheet = "2. By IMD decile",
                                skip = 1,
                                n_max = 33)
+
+# Load OP Age Data --------------------------------------------------------
+
+op_age_2324 <- read_excel(paste0(here("data",
+                                      "reference",
+                                      "hosp-epis-stat-outp-rep-tabs-2023-24-tab (1).xlsx")),
+                          sheet = "Summary Report 3",
+                          skip = 5,
+                          n_max = 20)
