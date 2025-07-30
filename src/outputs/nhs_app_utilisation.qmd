@@ -13,22 +13,114 @@ format:
 ---
 
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  out.width = '100%'
+)
+
+library(here)
+source(paste0(here("src", "requirements", "packages.R")))
+source(paste0(here("src", "config", "palette.R")))
+source(paste0(here("src", "load", "load.R")))
+source(paste0(here("src", "processing", "populations_processing.R")))
+source(paste0(here("src", "processing", "outpatient_proxy.R")))
+source(paste0(here("src", "processing", "mi_processing.R")))
+source(paste0(here("src", "processing", "demographics.R")))
+source(paste0(here("src", "analysis", "mi.R")))
+source(paste0(here("src", "analysis", "demographics.R")))
+
+
+```
+
+
 # Introduction
+***
 
 * Reference to feedback in 10YP
 * Remit of HealthWatch
 
-# What is publicly available about app usage
+# What do we already know about usage of the app?
+***
+For the last few months NHS England has been publishing some high-level statistics on the number of logins and the number of unique logins to the NHS App. This data is publicly available and the latest publication can be accessed [here](https://digital.nhs.uk/data-and-information/publications/statistical/nhs-app-statistics). These publications highlight that for the latest month of data (`r format(mi_latest[[1, 1]], "%B %Y")`) there were **`r scales::comma(mi_latest[[1,2]])`** logins to the app. Of these, **`r scales::comma(mi_latest[[1,3]])`** were unique users.
 
-* National MI Report
-* Analysis of variation in usage across ICBs
-* What isn't published
+The lowest level of granularity the data is published at is for individual Integrated Care Boards (ICBs). Calculating the rate of unique logins for each ICB shows there is significant variation in App utilisation across the country. The ICB with the highest rate, _`r mi_latest_comp[[1, 3]]`_, is **`r round(mi_latest_comp[[1, 11]] / mi_latest_comp[[2, 11]], 1)`** that of the lowest, _`r mi_latest_comp[[2, 3]]`_.
+
+```{r mi_icb_rates_chart}
+
+mi_icb_rates_latest_chart
+
+```
+
+
+
+However, there is no publicly available information to help explain the differences between these rates. What are some of the population demographic factors that could be impacting use of the NHS App? How can we be confident that those using the NHS App are representative of the wider population or those who are using NHS services? Without understanding this how can we be confident that feedback on services will reflect the views and needs to those using them?
+
+<br/>
+
 
 # Demographics FOI Request
+***
 
-* What was in the FOI
-* What couldn't be provided
-* Age group analysis
+## FOI Request
+
+### Our Request
+Therefore, we submitted a Freedom of Information Request (FOI) to NHS England requesting the latest utilisation data for the app broken down by the following population demographics:
+
+* __Age__: Age of the patient using the NHS App.
+* __Gender__: Breakdown of the gender of patients using the NHS App.
+* __Ethnicity__: Data on the ethnicity group of patients using the NHS App, broken down using the groupings within the NHS Data Dictionary or another appropriate grouping.
+* __Deprivation__: The Index of Multiple Deprivation (IMD) decile for the user based on their resident postcode. If this wasn't possible to use the IMD decile based on the GP Practice location.
+
+### Data Provided and Caveats
+NHS England were able to provide a breakdown of data for March, April and May 2025 for the following:
+
+* __Age__: A breakdown of age into 5-year age bands. For the age band analysis, an initial band of age ‘13 to 14' is presented, since users must be aged 13 or over to register with the NHS App. Users recorded as being aged 12 or younger have been included in the Unknown category.
+* __Deprivation__: A breakdown by IMD deciles based on the user's GP practice.
+
+However, we were unable to obtain information relating to utilisation of the NHS App for gender and ethnicity. The FOI response stated that:
+
+> _Information was also requested relating to the gender and ethnicity of NHS App users; however, this is not collected via NHS Login and so is not currently linked to NHS App login activity. Consequently, we are unable to provide login activity by gender and ethnicity of app users at this current time. We currently are working to expand our understanding of NHS App usage by linking to a wider range of demographic attributes and anticipate that we will have a more complete picture of activity by gender and ethnicity as we progress through winter 2025._
+
+
+## Age Group Analysis
+We compared the rate of unique logins per 1,000 population for each of the age groups. To accurately estimate the population for each age group we used estimates from the [ONS](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/bulletins/populationestimatesforenglandandwales/mid2023). This revealed for those accessing the NHS App in May 2025 there is significant variation in rates across different age groups.
+
+```{r demo_age_rates_chart}
+
+demo_age_rates_chart
+
+```
+
+However, a better way to look at this would be to compare utilisation with the app to the utilisation of NHS services. This isn't straight-forward though. How do we decide what an appropriate measure of the utilisation of NHS services is? Do we include all types of care activities? Does an admission equate to a GP appointment? Looking at publicly available data we decided to use outpatient attendances by age group as a proxy for healthcare utilisation. We have used the latest available [annual publication on outpatient attendances](https://digital.nhs.uk/data-and-information/publications/statistical/hospital-outpatient-activity/2023-24), which covers the 2023/24 financial year.
+
+Using this data it is possible to compare the proportion of logins by age group, with the proportion of outpatient appointments. The ratio of these two numbers determines if the number of logins to the app for that age group are proportionate to its share of the outpatient activity. For example, if 11% of all logins were for the 20-24 year old's but they represent 15% of the outpatient appointments, then their ratio will be less than 1. This means this age-group would be underrepresented by those using the NHS App.
+
+The charts below show the ratio of unique logins to outpatient attendances for those aged 15+. The vertical line at 1 is used to help identify age groups that are over or underrepresented.
+
+:::{.callout-note}
+As the Outpatient Attendance data is only available in 5-year age bands we are unable to include the _13 to 14_ age group from the NHS App login data.
+:::
+
+```{r demo_age_uu_login_ratio_chart}
+
+demo_age_op_ratio_chart
+
+```
+
+This chart clearly demonstrates that patients who are aged 70 years or older are **underrepresented** in using the NHS App when using outpatient attendances as a proxy for healthcare utilisation.
+
+When comparing with ratio of the proportion of _total logins_ rather than _unique logins_ to the proportion of outpatient attendances we see a similar picture:
+
+```{r demo_Age_total_login_ratio_chart}
+
+demo_age_op_logins_ratio_chart
+
+```
+
+
 * Deprivation analysis
 
 # Going forward, how to engage with users
@@ -36,3 +128,6 @@ format:
 * Key questions
 * Need to monitor demographics
 * Delivery plan and need to include training and engagement with the app
+
+# Metadata
+
