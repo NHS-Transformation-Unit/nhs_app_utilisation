@@ -7,7 +7,9 @@ packages <- c("here",
               "ggplot2",
               "readxl",
               "scales",
-              "tidyr")
+              "tidyr",
+              "binom",
+              "stringr")
 
 
 # Load Packages -----------------------------------------------------------
