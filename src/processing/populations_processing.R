@@ -55,3 +55,13 @@ ons_eng_2023 <- ons_my_pop_2023 |>
 ons_eng_age_band <- ons_eng_2023 |>
   group_by(Age_Band) |>
   summarise(Pop = sum(Pop, na.rm = TRUE))
+
+
+# IMD Populations ---------------------------------------------------------
+
+imd_pop <- imd_pop_raw |>
+  filter(!is.na(`Deprivation Decile (IMD 2020)`)) |>
+  rowwise() |>
+  mutate(Pop = sum(c_across(3:ncol(imd_pop_raw)))) |>
+  group_by(`Deprivation Decile (IMD 2020)`) |>
+  summarise(Pop = sum(Pop, na.rm = TRUE))

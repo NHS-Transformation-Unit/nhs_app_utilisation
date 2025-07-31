@@ -60,3 +60,20 @@ app_demo_age_op_logins <- app_demo_age_raw |>
          log_ratio = log(ratio),
          lower_ci = exp(log_ratio - (1.96 * se_log_ratio)),
          upper_ci = exp(log_ratio + (1.96 * se_log_ratio)))       
+
+
+# Deprivation -------------------------------------------------------------
+
+app_demo_dep <- app_demo_imd_raw |>
+  mutate(IMD_Decile = as.numeric(IMD_Decile)) |>
+  inner_join(imd_pop, by = c("IMD_Decile" = "Deprivation Decile (IMD 2020)")) |>
+  rowwise() |>
+  mutate(rate = Unique_Logins / Pop,
+         rate_per_1000 = rate * 1000,
+         ci = list(binom.confint(Unique_Logins, Pop, method = "wilson"))
+  ) |>
+  unnest_wider(ci) |>
+  rename(lower_ci = lower,
+         upper_ci = upper) |>
+  mutate(lower_ci_per_1000 = lower_ci * 1000,
+         upper_ci_per_1000 = upper_ci * 1000)

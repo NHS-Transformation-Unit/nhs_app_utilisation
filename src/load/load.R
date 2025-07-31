@@ -58,3 +58,12 @@ op_age_2324 <- read_excel(paste0(here("data",
                           sheet = "Summary Report 3",
                           skip = 5,
                           n_max = 20)
+
+# Load IMD Age Data -------------------------------------------------------
+
+imd_pop_raw <- read_excel(paste0(here("data",
+                                      "reference",
+                                      "populationbyimdenglandandwales2020.xlsx")),
+                          sheet = "Table 1 - England",
+                          skip = 3,
+                          n_max = 21)
