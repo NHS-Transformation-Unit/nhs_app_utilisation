@@ -67,3 +67,13 @@ imd_pop_raw <- read_excel(paste0(here("data",
                           sheet = "Table 1 - England",
                           skip = 3,
                           n_max = 21)
+
+
+# Load OP IMD Data --------------------------------------------------------
+
+op_dep_2324 <- read_excel(paste0(here("data",
+                                      "reference",
+                                      "hosp-epis-stat-outp-rep-tabs-2023-24-tab (1).xlsx")),
+                          sheet = "Summary Report 5",
+                          skip = 5,
+                          n_max = 10)
