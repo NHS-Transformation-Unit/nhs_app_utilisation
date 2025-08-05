@@ -39,8 +39,13 @@ source(paste0(here("src", "analysis", "demographics.R")))
 # Introduction
 ***
 
-* Reference to feedback in 10YP
-* Remit of HealthWatch
+The [10-Year Health Plan for England](https://assets.publishing.service.gov.uk/media/6888a0b1a11f859994409147/fit-for-the-future-10-year-health-plan-for-england.pdf) has the ambitions for using NHS App to collect feedback from patients about their care.By By 2028 the App will:
+
+> _allow patients to leave feedback on the care they have received - compiled and communicated back to providers, clinical teams and professionals in easy-to-action formats_ 
+
+
+There is [significant evidence](https://www.kingsfund.org.uk/insight-and-analysis/long-reads/tackling-health-inequalities-seven-priorities-nhs) on the health inequalities that exist in access to care, patient outcomes and experiences. Listening and acting on patient feedback, and understanding how services don't meet certain groups needs is critical to addressing these inequalities. Therefore, it is important that feedback collected through the NHS App is representative of the patients who use those services.
+
 
 # What do we already know about usage of the app?
 ***
@@ -121,13 +126,60 @@ demo_age_op_logins_ratio_chart
 ```
 
 
-* Deprivation analysis
+## Deprivation Analysis
 
-# Going forward, how to engage with users
+::: {.callout-warning}
+## Deprivation Deciles
+As part of the FOI we were also provided with login statistics broken down by IMD decile.However, this breakdown was not based on the decile **the patient was resident in** but on the decile based on the **location of their GP Practice**. 
 
-* Key questions
-* Need to monitor demographics
-* Delivery plan and need to include training and engagement with the app
+:::
+
+Looking at the rate of unique logins per 1,000 population across IMD Deciles showed that there is a higher utilisation of the NHS App within the more deprived areas. However, the variation seen across the deciles is much lower than across age groups.
+
+```{r demo_dep_rates_chart}
+
+demo_dep_rates_chart
+
+```
+
+When we compare the ratio of unique logins to outpatient attendances we see a similar picture of the more deprived areas having a higher than proportionate usage of the NHS App.
+
+```{r demo_dep_uu_login_ratio_chart}
+
+demo_dep_op_ratio_chart
+
+```
+
+Interpreting this information is difficult, in part due to the caveat that deprivation is based on the location of the GP practice for App utilisation. As we are also analysing these two demographics in isolation we aren't able to answer if the lower rates of utilisation in the most affluent areas are being driven by lower rates amongst older patients. We know that the proportion of patients aged 65+ years across England is higher in more affluent areas but without more granular data this can't be fully answered.
+
+# Going forwards
+***
+
+This analysis raises some key questions for NHS England. The NHS App has the potential for members of the public to offer more insightful feedback about the care they receive. However, there needs to be the assurance that the NHS is getting feedback from all those who use its services.
+
+## Monitoring App Utilisation
+Ensuring that there is a greater understanding of who is using the App is imperative. Whether this is through better data collection via the app or improved data linkage, this will need to happen as a priority. Understanding in more depth if the use of this app is representative of those who use NHS services is the first step to having the assurance feedback won't be biased in favour of certain demographics.
+
+NHS England did state in response to the FOI that: 
+
+> _We currently are working to expand our understanding of NHS App usage by linking to a wider range of demographic attributes and anticipate that we will have a more complete picture of activity by gender and ethnicity as we progress through winter 2025._
+
+Making as much of this data publicly available will also be important to provide the wider public with the confidence that the NHS is working to ensure that this is being monitored and acted on.
+
+## Engaging with different groups
+Since their creation in 2012, Healthwatch, both local and national, has gathered patient feedback on how NHS services are performing and understanding what matters to patients. Local Healthwatch organisations have a history of engaging with _seldom heard groups_ to ensure that their views on health and care services aren't ignored.
+
+The 10-year plan also announced the abolition of Healthwatch England and local Healthwatch engagement functions becoming the responsibility of ICBs and providers. There is a risk that feedback on care from these groups via the NHS App isn't aggregated together, and that these groups lose any collective voice. Therefore, ensuring that ICB and providers engage with these groups remains a priority.
+
+## Responsibility for App Engagement
+The 10-year plan states that the NHS will:
+
+> _We will also continue our current partnership with libraries and other community organisations to help set people up on the NHS App. We will continue recruiting App Ambassadors across the country to support uptake._
+
+[NHS App Ambassadors](https://digital.nhs.uk/services/nhs-app/become-an-nhs-app-ambassador) are advocates for the NHS App which can include delivering training individuals how to download and use the App. Recruitment of NHS App Ambassadors is currently the responsibility of NHS England. Given the abolition of NHS England, there remains the question of who has responsibility for this going forwards. Will this transition to the Department for Health and Social Care or become the responsibility of local care organisations. Whatever the direction on this, it will be vital that information about who is using the App can be shared with local teams and App Ambassadors. 
+
 
 # Metadata
+***
 
+As part of our commitment to transparency in our work all of the data and code that is used to create this analysis is available from the associated [GitHub repository](https://github.com/NHS-Transformation-Unit/nhs_app_utilisation). This includes specific documentation on data sources saved within the `documentation` folder.
