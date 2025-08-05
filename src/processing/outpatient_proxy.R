@@ -13,4 +13,9 @@ op_age_activity <- op_age_2324 |>
   ) |>
   select(AgeBand, Total_OP, Total_OP_ex_mat)
 
+# Create totals for IMD ---------------------------------------------------
+
+op_dep_activity <- op_dep_2324 |>
+  mutate(IMD_Decile = c(1:10)) |>
+  select(c(7, 2))
          

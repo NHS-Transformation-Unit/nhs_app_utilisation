@@ -77,3 +77,16 @@ app_demo_dep <- app_demo_imd_raw |>
          upper_ci = upper) |>
   mutate(lower_ci_per_1000 = lower_ci * 1000,
          upper_ci_per_1000 = upper_ci * 1000)
+
+app_demo_dep_op <- app_demo_imd_raw |>
+  mutate(IMD_Decile = as.numeric(IMD_Decile)) |>
+  inner_join(op_dep_activity, by = c("IMD_Decile")) |>
+  rename("Total_OP" = 5) |>
+  group_by(`Month-Year`) |>
+  mutate(UU_Prop = Unique_Logins / sum(Unique_Logins),
+         OP_Prop = Total_OP / sum(Total_OP),
+         ratio = UU_Prop / OP_Prop,
+         se_log_ratio = sqrt((1 / Unique_Logins) - (1 / sum(Unique_Logins)) + (1 / Total_OP) - (1 / sum(Total_OP))),
+         log_ratio = log(ratio),
+         lower_ci = exp(log_ratio - (1.96 * se_log_ratio)),
+         upper_ci = exp(log_ratio + (1.96 * se_log_ratio)))
