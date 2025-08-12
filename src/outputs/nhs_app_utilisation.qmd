@@ -1,7 +1,7 @@
 ---
 title: "NHS App Utilisation"
 author: "<a href='https://github.com/ASW-Analyst/'>Andy Wilson</a><br><a href='https://transformationunit.nhs.uk/'>NHS Transformation Unit</a>"
-date: "07/29/2025"
+date: "08/12/2025"
 date-format: "DD MMMM YYYY"
 format: 
   html:
@@ -39,12 +39,12 @@ source(paste0(here("src", "analysis", "demographics.R")))
 # Introduction
 ***
 
-The [10-Year Health Plan for England](https://assets.publishing.service.gov.uk/media/6888a0b1a11f859994409147/fit-for-the-future-10-year-health-plan-for-england.pdf) has the ambitions for using NHS App to collect feedback from patients about their care.By By 2028 the App will:
+The [10-Year Health Plan for England](https://assets.publishing.service.gov.uk/media/6888a0b1a11f859994409147/fit-for-the-future-10-year-health-plan-for-england.pdf) has the ambitions for using NHS App to collect feedback from patients about their care. By 2028 the App will:
 
 > _allow patients to leave feedback on the care they have received - compiled and communicated back to providers, clinical teams and professionals in easy-to-action formats_ 
 
 
-There is [significant evidence](https://www.kingsfund.org.uk/insight-and-analysis/long-reads/tackling-health-inequalities-seven-priorities-nhs) on the health inequalities that exist in access to care, patient outcomes and experiences. Listening and acting on patient feedback, and understanding how services don't meet certain groups needs is critical to addressing these inequalities. Therefore, it is important that feedback collected through the NHS App is representative of the patients who use those services.
+There is [significant evidence](https://www.kingsfund.org.uk/insight-and-analysis/long-reads/tackling-health-inequalities-seven-priorities-nhs) on the health inequalities that exist in access to care, patient outcomes and experiences. Listening and acting on patient feedback and understanding how services don't meet certain groups needs is critical to addressing these inequalities. Therefore, it is important that feedback collected through the NHS App is representative of the patients who use those services.
 
 
 # What do we already know about usage of the app?
@@ -72,7 +72,7 @@ However, there is no publicly available information to help explain the differen
 ## FOI Request
 
 ### Our Request
-Therefore, we submitted a Freedom of Information Request (FOI) to NHS England requesting the latest utilisation data for the app broken down by the following population demographics:
+We submitted a Freedom of Information Request (FOI) to NHS England requesting the latest utilisation data for the app broken down by the following population demographics:
 
 * __Age__: Age of the patient using the NHS App.
 * __Gender__: Breakdown of the gender of patients using the NHS App.
@@ -130,7 +130,7 @@ demo_age_op_logins_ratio_chart
 
 ::: {.callout-warning}
 ## Deprivation Deciles
-As part of the FOI we were also provided with login statistics broken down by IMD decile.However, this breakdown was not based on the decile **the patient was resident in** but on the decile based on the **location of their GP Practice**. 
+As part of the FOI we were also provided with login statistics broken down by IMD decile. However, this breakdown was not based on the decile **the patient was resident in** but on the decile based on the **location of their GP Practice**. 
 
 :::
 
@@ -142,7 +142,7 @@ demo_dep_rates_chart
 
 ```
 
-When we compare the ratio of unique logins to outpatient attendances we see a similar picture of the more deprived areas having a higher than proportionate usage of the NHS App.
+When we compare the ratio of unique logins to outpatient attendances, we see a similar picture of the more deprived areas having a higher than proportionate usage of the NHS App.
 
 ```{r demo_dep_uu_login_ratio_chart}
 
@@ -150,7 +150,7 @@ demo_dep_op_ratio_chart
 
 ```
 
-Interpreting this information is difficult, in part due to the caveat that deprivation is based on the location of the GP practice for App utilisation. As we are also analysing these two demographics in isolation we aren't able to answer if the lower rates of utilisation in the most affluent areas are being driven by lower rates amongst older patients. We know that the proportion of patients aged 65+ years across England is higher in more affluent areas but without more granular data this can't be fully answered.
+Interpreting this information is difficult, in part due to the caveat that deprivation is based on the location of the GP practice for App utilisation. As we are also analysing these two demographics in isolation we can't answer if the lower rates of utilisation in the most affluent areas are being driven by lower rates amongst older patients. We know that the proportion of patients aged 65+ years across England is higher in more affluent areas but without more granular data this can't be fully answered.
 
 # Going forwards
 ***
