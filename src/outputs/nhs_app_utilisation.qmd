@@ -165,6 +165,8 @@ demo_age_op_logins_ratio_chart
 
 ```
 
+This under representation raises important questions about digital inclusion and the accessibility of NHS digital tools for older populations. If feedback collected through the App is to inform service improvements, it must reflect the experiences of all age groups, particularly those who are high users of NHS services as older populations often are.
+
 
 ## Deprivation Analysis
 
@@ -191,6 +193,8 @@ demo_dep_op_ratio_chart
 ```
 
 Interpreting this information is difficult, in part due to the caveat that deprivation is based on the location of the GP practice for App utilisation. As we are also analysing these two demographics in isolation we can't answer if the lower rates of utilisation in the most affluent areas are being driven by lower rates amongst older patients. We know that the proportion of patients aged 65+ years across England is higher in more affluent areas but without more granular data this can't be fully answered.
+
+To fully understand patterns of digital engagement, and ensure feedback mechanisms are equitable, more detailed, linked demographic data is needed. Without it, there’s a risk that assumptions about who is using the App, and whose voices are being heard, may overlook key disparities shaped by the intersection of age, socioeconomic status, and access to care.
 
 <br/>
 
