@@ -1,7 +1,7 @@
 ---
 title: "NHS App Utilisation"
-author: "<a href='https://github.com/ASW-Analyst/'>Andy Wilson</a><br><a href='https://transformationunit.nhs.uk/'>NHS Transformation Unit</a>"
-date: "08/12/2025"
+author: "<a href='https://github.com/ASW-Analyst/'>Andy Wilson</a><br><a href='https://www.linkedin.com/in/molly-glynn/'>Molly Glynn</a><br><a href='https://transformationunit.nhs.uk/'>NHS Transformation Unit</a>"
+date: "08/13/2025"
 date-format: "DD MMMM YYYY"
 format: 
   html:
@@ -35,6 +35,30 @@ source(paste0(here("src", "analysis", "demographics.R")))
 
 ```
 
+```{r tu logo, echo = FALSE}
+
+htmltools::img(src = knitr::image_uri(paste0(here(), "/images/TU_logo_large.png")), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:5%; padding:10px;',
+               width = "180px",
+               heigth = "180px")
+
+```
+
+***
+
+::: {.callout-tip}
+## Executive Summary
+
+The NHS App (hereafter referred to as 'the App') is central to England’s 10-Year Health Plan, with ambitions to collect actionable patient feedback by 2028. However, ensuring that feedback reflects the full diversity of NHS service users is critical to addressing health inequalities. The Transformation Unit's (TU) recent analysis of App usage data, obtained via a Freedom of Information request, shows significant variation across age groups and regions. Key findings include:
+
+- **Older adults are notably underrepresented** relative to their share of outpatient activity.
+- While usage of the App is higher in more deprived areas, this **could be confounded by younger populations** living in those areas.
+- Currently utilisation data of the App **can't be linked to information on gender and ethnicity**, though NHS England (NHSE) is working to improve demographic linkage by winter 2025.
+
+Going forward, NHSE must prioritise better data linkage and transparency to ensure feedback is representative and equitable. With the abolition of Healthwatch England and the shift of engagement responsibilities to Integrated Care Boards (ICBs) and providers, there is a risk that seldom-heard groups lose their collective voices. Clear accountability for App engagement, particularly the future of NHS App Ambassadors, must be established. All data and code used in this analysis are publicly available via the associated [Github repository](https://github.com/NHS-Transformation-Unit/nhs_app_utilisation).
+
+:::
 
 # Introduction
 ***
@@ -44,12 +68,20 @@ The [10-Year Health Plan for England](https://assets.publishing.service.gov.uk/m
 > _allow patients to leave feedback on the care they have received - compiled and communicated back to providers, clinical teams and professionals in easy-to-action formats_ 
 
 
-There is [significant evidence](https://www.kingsfund.org.uk/insight-and-analysis/long-reads/tackling-health-inequalities-seven-priorities-nhs) on the health inequalities that exist in access to care, patient outcomes and experiences. Listening and acting on patient feedback and understanding how services don't meet certain groups needs is critical to addressing these inequalities. Therefore, it is important that feedback collected through the NHS App is representative of the patients who use those services.
+There is [significant evidence](https://www.kingsfund.org.uk/insight-and-analysis/long-reads/tackling-health-inequalities-seven-priorities-nhs) on the health inequalities that exist in access to care, patient outcomes and experiences. Listening and acting on patient feedback and understanding how services don't meet certain groups needs is critical to addressing these inequalities. With the large-scale move to capturing patient feedback via the App, it is important that this feedback is truly representative of the patients who use those services and does not create further barriers to equitable treatment.
 
+Digital access is increasingly recognised as a social determinant of health, influencing everything from appointment attendance to medication adherence. Yet millions in the UK still lack reliable internet access, digital devices, or the skills to use them effectively. The NHS App, while a powerful tool, can assume a baseline level of digital readiness that many patients simply do not have, which creates questions on parity of access when areas such as feedback are becoming digitised.
+
+Therefore, we have analysed the current usage of the App to understand the demographics of those using it. We also explore what this means for the the shift to feedback via digital tools.
 
 # What do we already know about usage of the App?
 ***
-For the last few months NHS England has been publishing some high-level statistics on the number of logins and the number of unique logins to the NHS App. This data is publicly available and the latest publication can be accessed [here](https://digital.nhs.uk/data-and-information/publications/statistical/nhs-app-statistics). These publications highlight that for the latest month of data (`r format(mi_latest[[1, 1]], "%B %Y")`) there were **`r scales::comma(mi_latest[[1,2]])`** logins to the App. Of these, **`r scales::comma(mi_latest[[1,3]])`** were unique users.
+Since March 2025 NHS England has been publishing some high-level statistics on the number of logins and the number of unique logins to the NHS App. Logins and unique logins are defined as:
+
+- **NHS App monthly logins**: The volume of NHS App session recorded over a calendar month.
+- **NHS App monthly unique user logins**: The number of distinct NHS App accounts that have logged into the app over a calendar month.
+
+This data is publicly available and the latest publication can be accessed [here](https://digital.nhs.uk/data-and-information/publications/statistical/nhs-app-statistics). These publications highlight that for the latest month of data (`r format(mi_latest[[1, 1]], "%B %Y")`) there were **`r scales::comma(mi_latest[[1,2]])`** logins to the App. Of these, **`r scales::comma(mi_latest[[1,3]])`** were unique user logins.
 
 The lowest level of granularity the data is published at is for individual Integrated Care Boards (ICBs). Calculating the rate of unique logins for each ICB shows there is significant variation in App utilisation across the country. The ICB with the highest rate, _`r mi_latest_comp[[1, 3]]`_, is **`r round(mi_latest_comp[[1, 11]] / mi_latest_comp[[2, 11]], 1)`** that of the lowest, _`r mi_latest_comp[[2, 3]]`_.
 
@@ -61,7 +93,7 @@ mi_icb_rates_latest_chart
 
 
 
-However, there is no publicly available information to help explain the differences between these rates. What are some of the population demographic factors that could be impacting use of the NHS App? How can we be confident that those using the NHS App are representative of the wider population or those who are using NHS services? Without understanding this how can we be confident that feedback on services will reflect the views and needs to those using them?
+However, there is no publicly available information to help explain the differences between these rates or why we see this degree of regional variation. What are some of the population demographic factors that could be impacting use of the NHS App? How can we be confident that those using the NHS App are representative of the wider population or those who are using NHS services? Without understanding this how can we be confident that feedback on services will reflect the views and needs to those using them?
 
 <br/>
 
@@ -152,10 +184,12 @@ demo_dep_op_ratio_chart
 
 Interpreting this information is difficult, in part due to the caveat that deprivation is based on the location of the GP practice for App utilisation. As we are also analysing these two demographics in isolation we can't answer if the lower rates of utilisation in the most affluent areas are being driven by lower rates amongst older patients. We know that the proportion of patients aged 65+ years across England is higher in more affluent areas but without more granular data this can't be fully answered.
 
+<br/>
+
 # Going forwards
 ***
 
-This analysis raises some key questions for NHS England. The NHS App has the potential for members of the public to offer more insightful feedback about the care they receive. However, there needs to be the assurance that the NHS is getting feedback from all those who use its services.
+This analysis raises critical questions for NHSE about the inclusivity and equity of digital feedback mechanisms. While the App offers a promising route for patients to share insights about their care, it is essential to ensure that feedback reflects the full diversity of service users. Without representative input, there is a risk that improvements will be shaped by the experiences of more digitally engaged groups, potentially widening existing health inequalities.
 
 ## Monitoring App Utilisation
 Ensuring that there is a greater understanding of who is using the App is imperative. Whether this is through better data collection via the App or improved data linkage, this will need to happen as a priority. Understanding in more depth if the use of the App is representative of those who use NHS services is the first step to having the assurance feedback won't be biased in favour of certain demographics.
@@ -169,15 +203,23 @@ Making as much of this data publicly available will also be important to provide
 ## Engaging with different groups
 Since their creation in 2012, Healthwatch, both local and national, has gathered patient feedback on how NHS services are performing and understanding what matters to patients. Local Healthwatch organisations have a history of engaging with _seldom heard groups_ to ensure that their views on health and care services aren't ignored.
 
-The 10-year plan also announced the abolition of Healthwatch England and local Healthwatch engagement functions becoming the responsibility of ICBs and providers. There is a risk that feedback on care from these groups via the NHS App isn't aggregated together, and that these groups lose any collective voice. Therefore, ensuring that ICB and providers engage with these groups remains a priority.
+The 10-year plan also announced the abolition of Healthwatch England and local Healthwatch engagement functions becoming the responsibility of ICBs and providers. There is a risk that feedback on care from these groups via the NHS App isn't aggregated together, and that these groups lose any collective voice. It is therefore imperative that ICBs and providers actively seek out and incorporate feedback from seldom-heard groups, particularly as digital tools become more central to patient engagement, so as to not further deepen existing gaps in healthcare experiences and outcomes between groups.
 
 ## Responsibility for App Engagement
 The 10-year plan states that the NHS will:
 
 > _We will also continue our current partnership with libraries and other community organisations to help set people up on the NHS App. We will continue recruiting App Ambassadors across the country to support uptake._
 
-[NHS App Ambassadors](https://digital.nhs.uk/services/nhs-app/become-an-nhs-app-ambassador) are advocates for the NHS App which can include delivering training individuals how to download and use the App. Recruitment of NHS App Ambassadors is currently the responsibility of NHS England. Given the abolition of NHS England, there remains the question of who has responsibility for this going forwards. Will this transition to the Department for Health and Social Care or become the responsibility of local care organisations? Whatever the direction on this, it will be vital that information about who is using the App can be shared with local teams and App Ambassadors. 
+[NHS App Ambassadors](https://digital.nhs.uk/services/nhs-app/become-an-nhs-app-ambassador) are advocates for the NHS App which can include delivering training individuals how to download and use the App. Recruitment of NHS App Ambassadors is currently the responsibility of NHS England. Given the abolition of NHS England, there remains the question of who has responsibility for this going forwards. Will this transition to the Department for Health and Social Care or become the responsibility of local care organisations? Wherever this responsibility is eventually placed, it will be vital that outreach strategies are maintained and strengthened, especially in communities facing digital exclusion. Local teams and ambassadors must be equipped with data on usage patterns to target support effectively and ensure equitable access.
 
+## Building digital trust
+Beyond access and representation, a critical but often overlooked dimension of health inequality is digital trust i.e. the extent to which individuals feel confident using digital tools to manage their health and share personal information. For many patients, particularly those from ethnic minority backgrounds, older adults, or those where English is not their first language, the App may not feel like a safe or intuitive space. Concerns about data privacy, unfamiliarity with digital interfaces, and past negative experiences with healthcare services can all contribute to reluctance or disengagement.
+
+To truly democratise digital feedback, the NHS must invest not only in outreach as described above, but also in building trust through co-design. This means involving patients from diverse backgrounds in the development and refinement of App features, ensuring that accessibility and cultural relevance are embedded from the outset. It also means being transparent about how feedback is used, and demonstrating that patient voices, especially those from marginalised groups, lead to tangible improvements in care.
+
+Without this trust-building, digital tools like the App risk becoming another layer of exclusion. The shift to using the App for patient feedback should not be a mechanism for passive data collection but should grasp the opportunity for the NHS to actively relationship-build with the communities it serves.
+
+<br/>
 
 # Metadata
 ***
