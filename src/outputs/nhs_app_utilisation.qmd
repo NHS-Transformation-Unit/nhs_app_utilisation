@@ -50,7 +50,7 @@ htmltools::img(src = knitr::image_uri(paste0(here(), "/images/TU_logo_large.png"
 ::: {.callout-tip}
 ## Executive Summary
 
-The NHS App (hereafter referred to as 'the App') is central to England’s 10-Year Health Plan, with ambitions to collect actionable patient feedback by 2028. However, ensuring that feedback reflects the full diversity of NHS service users is critical to addressing health inequalities. The Transformation Unit's (TU) recent analysis of App usage data, obtained via a Freedom of Information request, shows significant variation across age groups and regions. Key findings include:
+The NHS App (hereafter referred to as 'the App') is central to England’s 10-Year Health Plan, with ambitions to collect actionable patient feedback by 2028. Ensuring that feedback reflects the full diversity of NHS service users is critical to addressing health inequalities. The Transformation Unit's (TU) recent analysis of App usage data, obtained via a Freedom of Information request, shows significant variation across age groups and regions. Key findings include:
 
 - **Older adults are notably underrepresented** relative to their share of outpatient activity.
 - While usage of the App is higher in more deprived areas, this **could be confounded by younger populations** living in those areas.
