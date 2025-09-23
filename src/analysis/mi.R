@@ -30,7 +30,7 @@ mi_icb_rates_latest_chart <- ggplot(mi_icb_latest, aes(x = rate_per_1000, y = re
   labs(x = "Rate of Unique Logins per 1,000 Population aged 13+ years",
        y = "ICB",
        title = "There is significant variation between ICBs in\nthe rate of unique logins to the NHS App",
-       subtitle = "Rate of Unique Logins by ICB | June 2025",
+       subtitle = "Rate of Unique Logins by ICB | July 2025",
        caption = "Source: NHS App Management Information") +
   theme(text = element_text(family = "Franklin Gothic Book"),
         strip.background = element_rect(fill = "#407EC9"),

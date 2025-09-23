@@ -3,10 +3,10 @@
 
 mi_raw <- read_excel(paste0(here("data",
                                  "mi_raw",
-                                 "NHS App Management Information Statistics - June 2025.xlsx")),
+                                 "NHS App Management Information Statistics - July 2025.xlsx")),
                      sheet = "Table 2",
                      skip = 2,
-                     n_max = 172)
+                     n_max = 215)
 
 
 # Load GP Registered Populations ------------------------------------------
